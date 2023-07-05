@@ -21,7 +21,6 @@ export class ChartBtn extends AbstractDestroy {
     this.render();
 
     this.taskDestroy(() => this.container.remove())
-    console.log(this.emitter)
   }
 
   render () {

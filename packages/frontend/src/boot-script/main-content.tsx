@@ -23,6 +23,6 @@ export class MainContent extends AbstractDestroy {
   }
 
   render () {
-    render(<iframe src={'http://127.0.0.1:5173/'} className={'border border-red-400'}></iframe>, this.shadowRoot)
+    render(<iframe src={'http://localhost:5173/'} className={'border border-red-400'}></iframe>, this.shadowRoot)
   }
 }
