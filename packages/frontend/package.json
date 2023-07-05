@@ -9,8 +9,8 @@
     "build:main-page": "tsc && cross-env BUILD_FOR=main-page vite build",
     "build:boot-script": " cross-env BUILD_FOR=boot-script vite build -c vite.boot-script.config.ts --emptyOutDir false",
     "preview": "vite preview",
-    "lint:check": "cross-env NODE_ENV=production FORCE_COLOR=1 eslint --quiet  src/**/*.{js,jsx,ts,tsx}",
-    "lint:fix": "cross-env NODE_ENV=production FORCE_COLOR=1 eslint --fix  src/**/*.{js,jsx,ts,tsx}"
+    "lint:check": "cross-env NODE_ENV=production FORCE_COLOR=1 eslint --quiet  ./src/**/*.{js,jsx,ts,tsx}",
+    "lint:fix": "cross-env NODE_ENV=production FORCE_COLOR=1 eslint --fix  ./src/**/*.{js,jsx,ts,tsx}"
   },
   "dependencies": {
     "preact": "^10.13.2",
