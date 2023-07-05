@@ -1,0 +1,8 @@
+{
+  "eslint.workingDirectories": ["./packages/frontend"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": ["javascript"],
+  "editor.tabSize": 2
+}
