@@ -19,9 +19,9 @@ export class MainContent extends AbstractDestroy {
       this.eventBus.createEmitter()
     );
     this.chatContainer.appendChild(this.container);
-    this.render()
     this.taskDestroy(() => this.container.remove())
     this.emitter.subscribe('setOpenChat', state => this.open = state)
+    this.render()
   }
 
   get open () {

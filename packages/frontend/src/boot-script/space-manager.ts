@@ -1,4 +1,4 @@
-import chatConfig from './getConfig';
+import chatConfig from './get-config';
 
 export default class SpaceManager {
   private readonly buttonWidth = 48;

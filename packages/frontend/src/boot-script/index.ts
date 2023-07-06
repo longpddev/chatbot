@@ -1,6 +1,6 @@
 import { EventBus } from "./utils/event-bus"
-import getChartContainer from "./getChartContainer"
-import chatConfig from "./getConfig"
+import getChartContainer from "./get-chart-container"
+import chatConfig from "./get-config"
 import { MainContent } from "./main-content"
 import { ChartBtn } from "./chat-btn"
 import SpaceManager from "./space-manager"

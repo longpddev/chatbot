@@ -1,15 +1,18 @@
 import clsx from 'clsx'
 import SpaceManager from '../space-manager';
+import chatConfig from '../get-config';
 
 interface IMainContentComponentProps {
   open: boolean
   space: SpaceManager
 }
-
+const url = new URL(import.meta.env.VITE_CHAT_CONTENT_URL)
+url.hash = encodeURIComponent(JSON.stringify(chatConfig))
 const MainContentComponent = ({ open, space }: IMainContentComponentProps) => {
   const contentSpace = space.chatContent();
+
   return (
-    <iframe src={'http://localhost:5173/'} className={clsx(
+    <iframe src={url.toString()} className={clsx(
       "shadow-[rgba(0,0,0,0.16)_0px_5px_40px]",
       "rounded-2xl opacity-100 transition-all fixed",
       {
