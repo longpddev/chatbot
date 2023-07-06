@@ -1,8 +1,8 @@
 import type { Destroyable } from "../../interface"
 import type { TinyEmitter } from "tiny-emitter"
 export type AnyFunc = (...args: any[]) => any;
-type ArgsFun<A extends Array<unknown>> = (...args: A) => void
-export class EventEmitter <IEvents extends Record<string, Array<unknown>>> implements Destroyable {
+type ArgsFun<A extends unknown[]> = (...args: A) => void
+export class EventEmitter <IEvents extends Record<string, unknown[]>> implements Destroyable {
   private readonly subscriptions = new Map<keyof IEvents, AnyFunc[]>()
   constructor (private readonly emitter: TinyEmitter) {}
 

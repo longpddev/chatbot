@@ -16,7 +16,7 @@ export function getConfigByElement (element: HTMLElement) {
   options.forEach(item => {
     let data: number | string | undefined = element.dataset['euroland' + capitalize(item)]
     if (!data) return;
-    
+
     switch (typeof configDefault[item]) {
       case 'number': {
         data = Number(data);
@@ -24,7 +24,7 @@ export function getConfigByElement (element: HTMLElement) {
       }
     }
 
-    result[item] = (data as ChatConfig[typeof item])
+    result[item] = (data)
   })
 
   return result as Partial<ChatConfig>
@@ -32,7 +32,7 @@ export function getConfigByElement (element: HTMLElement) {
 
 export function getConfig () {
   if (!elementConfig) return configDefault;
-  return Object.freeze(Object.assign(configDefault,getConfigByElement(elementConfig)));
+  return Object.freeze(Object.assign(configDefault, getConfigByElement(elementConfig)));
 }
 
 const chatConfig = getConfig();

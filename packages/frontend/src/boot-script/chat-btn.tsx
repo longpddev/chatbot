@@ -29,7 +29,7 @@ export class ChartBtn extends AbstractDestroy {
   }
 
   set open (value: boolean) {
-    if(this._open === value) return;
+    if (this._open === value) return;
     this._open = value;
     this.render();
     this.emitter.publish('setOpenChat', value)

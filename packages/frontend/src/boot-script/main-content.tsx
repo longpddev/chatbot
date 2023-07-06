@@ -30,7 +30,7 @@ export class MainContent extends AbstractDestroy {
   }
 
   set open (state: boolean) {
-    if(this._open === state) return;
+    if (this._open === state) return;
     this._open = state;
     this.render()
   }

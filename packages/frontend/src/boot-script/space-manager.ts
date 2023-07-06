@@ -20,7 +20,7 @@ export default class SpaceManager {
   };
 
   constructor (private readonly eventBus: EventBus) {}
-  
+
   chatContent () {
     const buttonSpace = this.button();
     return {
@@ -28,7 +28,7 @@ export default class SpaceManager {
       position: buttonSpace.position,
       left: buttonSpace.left,
       right: buttonSpace.right,
-      bottom: buttonSpace.bottom + buttonSpace.height + this.chatSpace.spaceWithBtn,
+      bottom: buttonSpace.bottom + buttonSpace.height + this.chatSpace.spaceWithBtn
     }
   }
 
@@ -36,7 +36,7 @@ export default class SpaceManager {
     return {
       position: chatConfig.position,
       left: chatConfig.position === 'left' ? chatConfig.positionLeft : undefined,
-      right: chatConfig.position === 'right' ?  chatConfig.positionRight : undefined,
+      right: chatConfig.position === 'right' ? chatConfig.positionRight : undefined,
       bottom: chatConfig.positionBottom,
       width: this.buttonWidth,
       height: this.buttonWidth

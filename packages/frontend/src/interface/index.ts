@@ -15,7 +15,7 @@ export type ChatConfigKeys = [
 ];
 
 // keys is name of event, and value of keys is params of that event
-export type EventBusEvents = {
+export interface EventBusEvents {
   'setOpenChat': [state: boolean]
 }
 

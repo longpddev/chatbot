@@ -5,14 +5,14 @@ import ChevronDown from '../../icons/ChevronDown'
 import SpaceManager from '../space-manager'
 
 interface IChartBtnComponentProps {
-  openSet: (s: boolean) => void,
-  open: boolean,
+  openSet: (s: boolean) => void
+  open: boolean
   space: SpaceManager
 }
 
 export default function ChartBtnComponent ({ openSet, open, space }: IChartBtnComponentProps) {
   const spaceButton = space.button()
-  return <button 
+  return <button
     className={clsx(
       "fixed rounded-full",
       "bg-blue-primary hover:scale-110 transition-all",

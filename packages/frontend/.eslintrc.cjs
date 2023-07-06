@@ -23,6 +23,7 @@ module.exports = {
         "@typescript-eslint/quotes": "off",
         "@typescript-eslint/consistent-type-imports": "off",
         "@typescript-eslint/semi": "off",
-        "eol-last": "off"
+        "eol-last": "off",
+        "no-return-assign": 'off'
     },
 };

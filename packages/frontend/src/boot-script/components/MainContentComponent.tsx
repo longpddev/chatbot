@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import SpaceManager from '../space-manager';
 
 interface IMainContentComponentProps {
-  open: boolean;
+  open: boolean
   space: SpaceManager
 }
 
