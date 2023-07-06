@@ -1,9 +1,9 @@
 import { ChatConfig, ChatConfigKeys } from "../interface";
-import { firstUppercase } from "./utils";
+import { capitalize } from "./utils";
 
 const configDefault: ChatConfig = {
   container: 'body',
-  position: 'left',
+  position: 'right',
   positionBottom: 20,
   positionLeft: 20,
   positionRight: 20
@@ -14,10 +14,17 @@ export function getConfigByElement (element: HTMLElement) {
   const options = Object.keys(configDefault) as ChatConfigKeys
   const result = {} as any;
   options.forEach(item => {
-    const data = element.dataset['euroland' + firstUppercase(item)]
-    if (data) {
-      result[item] = (data as ChatConfig[typeof item])
+    let data: number | string | undefined = element.dataset['euroland' + capitalize(item)]
+    if (!data) return;
+    
+    switch (typeof configDefault[item]) {
+      case 'number': {
+        data = Number(data);
+        break;
+      }
     }
+
+    result[item] = (data as ChatConfig[typeof item])
   })
 
   return result as Partial<ChatConfig>
@@ -25,7 +32,7 @@ export function getConfigByElement (element: HTMLElement) {
 
 export function getConfig () {
   if (!elementConfig) return configDefault;
-  return Object.assign(getConfigByElement(elementConfig), configDefault);
+  return Object.freeze(Object.assign(configDefault,getConfigByElement(elementConfig)));
 }
 
 const chatConfig = getConfig();

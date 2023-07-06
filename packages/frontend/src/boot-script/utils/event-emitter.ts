@@ -1,29 +1,30 @@
-import type { AnyFunc, Destroyable } from "../../interface"
+import type { Destroyable } from "../../interface"
 import type { TinyEmitter } from "tiny-emitter"
-
-export class EventEmitter implements Destroyable {
-  private readonly subscriptions = new Map<string, AnyFunc[]>()
+export type AnyFunc = (...args: any[]) => any;
+type ArgsFun<A extends Array<unknown>> = (...args: A) => void
+export class EventEmitter <IEvents extends Record<string, Array<unknown>>> implements Destroyable {
+  private readonly subscriptions = new Map<keyof IEvents, AnyFunc[]>()
   constructor (private readonly emitter: TinyEmitter) {}
 
-  publish (event: string, ...args: unknown[]) {
-    this.emitter.emit(event, ...args)
+  publish <E extends keyof IEvents> (event: E, ...args: IEvents[E]) {
+    this.emitter.emit(event as string, ...args)
   }
 
-  subscribe (event: string, handle: AnyFunc) {
+  subscribe <E extends keyof IEvents> (event: E, handle: ArgsFun<IEvents[E]>) {
     const eventsCallback = this.subscriptions.get(event) ?? []
     eventsCallback.push(handle)
-    this.subscriptions.set(event, eventsCallback)
-    this.emitter.on(event, handle)
+    this.subscriptions.set(event as string, eventsCallback)
+    this.emitter.on(event as string, handle)
   }
 
-  unsubscribe (event: string, handle?: AnyFunc) {
+  unsubscribe <E extends keyof IEvents> (event: E, handle?: ArgsFun<IEvents[E]>) {
     const eventsCallback = (this.subscriptions.get(event) ?? []).filter(
       (callback) => {
         let result = callback === handle
         if (!handle) result = false
 
         if (!result) {
-          this.emitter.off(event, handle)
+          this.emitter.off(event as string, handle)
         }
 
         return result

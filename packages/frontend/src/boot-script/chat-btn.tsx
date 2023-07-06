@@ -3,27 +3,42 @@ import AbstractDestroy from "./utils/abstract-destroy";
 import createShadowRoot from "./utils/create-shadow-root";
 import { EventBus } from "./utils/event-bus";
 import { EventEmitter } from "./utils/event-emitter";
+import ChartBtnComponent from './components/ChatBtnComponent'
+import SpaceManager from "./space-manager";
 
 export class ChartBtn extends AbstractDestroy {
-  private readonly emitter: EventEmitter
-
-  private readonly container = document.createElement('div');
+  private readonly emitter;
+  private _open = false;
+  private readonly container = document.createElement("div");
   private readonly shadowRoot = createShadowRoot(this.container);
   constructor (
     private readonly eventBus: EventBus,
+    private readonly space: SpaceManager,
     private readonly chatContainer: HTMLElement
   ) {
-    super()
-    this.emitter = this.wrapDestroy(
-      this.eventBus.createEmitter()
-    );
+    super();
+    this.emitter = this.wrapDestroy(this.eventBus.createEmitter());
     this.chatContainer.appendChild(this.container);
     this.render();
+    this.taskDestroy(() => this.container.remove());
+    this.emitter.subscribe('setOpenChat', (state) => this.open = state)
+  }
 
-    this.taskDestroy(() => this.container.remove())
+  get open () {
+    return this._open
+  }
+
+  set open (value: boolean) {
+    if(this._open === value) return;
+    this._open = value;
+    this.render();
+    this.emitter.publish('setOpenChat', value)
   }
 
   render () {
-    render(<button className="fixed bottom-10 right-10 w-10 h-10 rounded-full bg-sky-400"> </button>, this.shadowRoot)
+    render(
+      <ChartBtnComponent open={this.open} openSet={state => this.open = state} space={this.space} />,
+      this.shadowRoot
+    );
   }
 }

@@ -14,6 +14,11 @@ export type ChatConfigKeys = [
   "positionRight"
 ];
 
+// keys is name of event, and value of keys is params of that event
+export type EventBusEvents = {
+  'setOpenChat': [state: boolean]
+}
+
 export interface Destroyable {
   destroy: () => void
 }
