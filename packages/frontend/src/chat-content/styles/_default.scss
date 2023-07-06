@@ -1,3 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-size: 14px;
+}
+
+html, body, #app, .chat-app {
+  height: 100%;
 }

@@ -4,9 +4,9 @@ import ReplyMessage from "../ReplyMessage"
 
 function ChatApp () {
   return (
-    <div className="chat-app w-[400px] h-[700px] shadow-wrapper rounded-2xl overflow-hidden">
+    <div className="chat-app shadow-wrapper rounded-2xl overflow-hidden">
       <HeaderChatApp />
-      <div className="chat-app__main m-h">
+      <div className="chat-app__main relative">
         <Conversations />
         <ReplyMessage />
       </div>

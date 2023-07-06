@@ -24,6 +24,7 @@ export default {
         black: {
           DEFAULT: "rgba(0,0,0)",
           100: "rgba(255, 255, 255, 0.7)",
+          200: "rgba(0, 0, 0, 0.08)"
         },
         gray: {
           200: "rgb(115, 115, 118)",
@@ -36,6 +37,7 @@ export default {
 
       spacing: {
         "height-header": "64px",
+        "avatar-container-width": "45px"
       },
     },
   },
