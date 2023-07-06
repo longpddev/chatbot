@@ -1,0 +1,19 @@
+@use '../variable' as *;
+
+.chat-app {
+  &__header {
+    height: theme("spacing.height-header");
+  }
+
+  &__main {
+    height: calc(100% - theme("spacing.height-header"));
+  }
+
+  &__message {
+    &__wrapper, &__timestamp {
+      padding-left: $avatar-container-width;
+      width: calc(100% - $avatar-container-width);
+    }
+  }
+}
+

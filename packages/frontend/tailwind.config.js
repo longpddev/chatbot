@@ -18,12 +18,27 @@ export default {
   theme: {
     extend: {
       colors: {
-        blue: {
-          primary: "rgb(0, 87, 255)"
-        }
-      }
+        primary: {
+          DEFAULT: "#0057FF",
+        },
+        black: {
+          DEFAULT: "rgba(0,0,0)",
+          100: "rgba(255, 255, 255, 0.7)",
+        },
+        gray: {
+          200: "rgb(115, 115, 118)",
+          300: "rgb(242, 242, 242)",
+        },
+      },
+      boxShadow: {
+        wrapper: "rgba(0, 0, 0, 0.16) 0px 5px 40px",
+      },
+
+      spacing: {
+        "height-header": "64px",
+      },
     },
   },
   plugins: [],
-}
+};
 

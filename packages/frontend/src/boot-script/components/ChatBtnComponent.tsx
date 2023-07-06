@@ -15,7 +15,7 @@ export default function ChartBtnComponent ({ openSet, open, space }: IChartBtnCo
   return <button
     className={clsx(
       "fixed rounded-full",
-      "bg-blue-primary hover:scale-110 transition-all",
+      "bg-primary hover:scale-110 transition-all",
       "active:scale-[0.85] z-[100]",
       "chat-button"
     )}
