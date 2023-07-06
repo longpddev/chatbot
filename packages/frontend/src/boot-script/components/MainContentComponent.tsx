@@ -8,7 +8,6 @@ interface IMainContentComponentProps {
 
 const MainContentComponent = ({ open, space }: IMainContentComponentProps) => {
   const contentSpace = space.chatContent();
-  console.log(`min(${contentSpace.maxHeight}px, 100% - ${contentSpace.bottom + 20}px)`)
   return (
     <iframe src={'http://localhost:5173/'} className={clsx(
       "shadow-[rgba(0,0,0,0.16)_0px_5px_40px]",

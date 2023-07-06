@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import { ChatLogo } from '../../icons/ChatLogo'
-import { useState } from 'preact/hooks'
 import ChevronDown from '../../icons/ChevronDown'
 import SpaceManager from '../space-manager'
 

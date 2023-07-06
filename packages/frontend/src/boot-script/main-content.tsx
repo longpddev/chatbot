@@ -3,7 +3,6 @@ import SpaceManager from "./space-manager";
 import AbstractDestroy from "./utils/abstract-destroy";
 import createShadowRoot from "./utils/create-shadow-root";
 import { EventBus } from "./utils/event-bus";
-import { EventEmitter } from "./utils/event-emitter";
 import { render } from 'preact'
 export class MainContent extends AbstractDestroy {
   private readonly emitter;

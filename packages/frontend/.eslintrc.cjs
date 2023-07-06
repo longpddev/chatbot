@@ -1,6 +1,6 @@
 const mode = process.env.NODE_ENV ?? 'development';
 
-const config = (development, production) => mode === 'development' ? development : development
+const config = (development, production) => mode === 'development' ? development : production
 
 module.exports = {
     parser: '@typescript-eslint/parser',
@@ -24,6 +24,7 @@ module.exports = {
         "@typescript-eslint/consistent-type-imports": "off",
         "@typescript-eslint/semi": "off",
         "eol-last": "off",
-        "no-return-assign": 'off'
+        "no-return-assign": 'off',
+        "no-new": "off"
     },
 };

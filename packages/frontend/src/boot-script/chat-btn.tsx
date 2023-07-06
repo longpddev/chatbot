@@ -2,7 +2,6 @@ import { render } from "preact";
 import AbstractDestroy from "./utils/abstract-destroy";
 import createShadowRoot from "./utils/create-shadow-root";
 import { EventBus } from "./utils/event-bus";
-import { EventEmitter } from "./utils/event-emitter";
 import ChartBtnComponent from './components/ChatBtnComponent'
 import SpaceManager from "./space-manager";
 

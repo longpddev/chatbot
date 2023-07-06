@@ -1,14 +1,4 @@
 import chatConfig from './getConfig';
-import { EventBus } from './utils/event-bus';
-
-function addUnit (dustyNumber: number | string, unit: string) {
-  const num = dustyNumber.toString().trim()
-  if (num) {
-    return num + unit
-  } else {
-    return null;
-  }
-}
 
 export default class SpaceManager {
   private readonly buttonWidth = 48;
@@ -18,8 +8,6 @@ export default class SpaceManager {
     maxHeight: 700,
     minHeight: 80
   };
-
-  constructor (private readonly eventBus: EventBus) {}
 
   chatContent () {
     const buttonSpace = this.button();

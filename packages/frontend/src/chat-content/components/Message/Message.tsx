@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import clsx from "clsx";
 import { FunctionalComponent } from "preact";
 
 interface MessageProps {
@@ -9,7 +9,7 @@ const Message: FunctionalComponent<MessageProps> = ({ isYou }) => {
   return (
     <div className="chat-app__message mb-4">
       <div
-        className={classNames(
+        className={clsx(
           "flex items-center relative",
           {
             'me justify-end': isYou
@@ -26,12 +26,12 @@ const Message: FunctionalComponent<MessageProps> = ({ isYou }) => {
         )}
 
         <div
-          className={classNames("chat-app__message__wrapper", {
+          className={clsx("chat-app__message__wrapper", {
             "flex justify-end": isYou
           })}
         >
           <div
-            className={classNames(
+            className={clsx(
               "chat-app__message__content bg-gray-300 px-[20px] py-[17px] text-black w-max rounded-[10px] max-w-full",
               {
                 "bg-primary text-white": isYou
