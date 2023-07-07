@@ -2,7 +2,7 @@ import type { Destroyable } from "../../interface"
 import type { TinyEmitter } from "tiny-emitter"
 export type AnyFunc = (...args: any[]) => any;
 type ArgsFun<A extends unknown[]> = (...args: A) => void
-export class EventEmitter <IEvents extends Record<string, unknown[]>> implements Destroyable {
+export class EventEmitter <IEvents extends Record<keyof IEvents, unknown[]>> implements Destroyable {
   private readonly subscriptions = new Map<keyof IEvents, AnyFunc[]>()
   constructor (private readonly emitter: TinyEmitter) {}
 
@@ -13,7 +13,7 @@ export class EventEmitter <IEvents extends Record<string, unknown[]>> implements
   subscribe <E extends keyof IEvents> (event: E, handle: ArgsFun<IEvents[E]>) {
     const eventsCallback = this.subscriptions.get(event) ?? []
     eventsCallback.push(handle)
-    this.subscriptions.set(event as string, eventsCallback)
+    this.subscriptions.set((event as keyof IEvents), eventsCallback)
     this.emitter.on(event as string, handle)
   }
 
