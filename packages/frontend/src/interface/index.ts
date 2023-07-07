@@ -24,3 +24,19 @@ export interface Destroyable {
 }
 
 export type AnyFunc = (...args: unknown[]) => unknown;
+
+export interface State {
+  bottomPositionOfChatContent: number
+  messageData: Message[]
+  isNewChat: boolean
+  changeBottomPositionOfChatContent: (position: number) => void
+  createAndAddMessage: (messageText: string, userId: string) => void
+  setIsNewChat: (status: boolean) => void
+  // createAndAddMessageFromChatBot: () => void
+}
+
+export interface Message {
+  id: number | string
+  message: string
+  userId: string
+}

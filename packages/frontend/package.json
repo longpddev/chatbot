@@ -13,10 +13,11 @@
     "lint:fix": "cross-env NODE_ENV=production FORCE_COLOR=1 eslint --fix  ./src/**/*.{js,jsx,ts,tsx}"
   },
   "dependencies": {
-    "preact": "^10.13.2",
-    "tiny-emitter": "^2.1.0",
     "clsx": "^1.2.1",
-    "sass": "^1.63.6"
+    "preact": "^10.13.2",
+    "sass": "^1.63.6",
+    "tiny-emitter": "^2.1.0",
+    "zustand": "^4.3.9"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.5.0",

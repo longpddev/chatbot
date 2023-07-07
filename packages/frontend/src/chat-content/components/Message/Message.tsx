@@ -1,11 +1,17 @@
 import clsx from "clsx";
 import { FunctionalComponent } from "preact";
+import { Message as MessageInterFace } from "../../../interface";
+import { CLIENT_ID } from "../../utils/constants";
 
 interface MessageProps {
-  isYou: boolean
+  message: MessageInterFace
+  currentAndNextMessageIsSameUser: boolean
 }
 
-const Message: FunctionalComponent<MessageProps> = ({ isYou }) => {
+const Message: FunctionalComponent<MessageProps> = ({ message, currentAndNextMessageIsSameUser }) => {
+  // const { isYou } = message;
+  const isYou = message.userId === CLIENT_ID
+
   return (
     <div className="chat-app__message mb-4">
       <div
@@ -16,7 +22,7 @@ const Message: FunctionalComponent<MessageProps> = ({ isYou }) => {
           }
         )}
       >
-        {!isYou && (
+        {!isYou && !currentAndNextMessageIsSameUser && (
           <div className="avatar absolute left-0 bottom-[10px]">
             <img
               src="https://static.intercomassets.com/avatars/5721047/square_128/Untitled_%2825_%C3%97_25_cm%29_%286%29-min-1666925264.png"
@@ -38,9 +44,7 @@ const Message: FunctionalComponent<MessageProps> = ({ isYou }) => {
               }
             )}
           >
-            {isYou
-              ? " HI"
-              : "amckls mclkasm mcklasmc mklcsamc mclksmc mclkasmc mclaskmc mclkasmc mck \n cmklsmc cnmsjkcn cmskcm"}
+            {message.message}
           </div>
         </div>
       </div>

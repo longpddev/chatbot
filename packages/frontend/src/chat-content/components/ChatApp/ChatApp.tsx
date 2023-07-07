@@ -11,7 +11,7 @@ function ChatApp () {
         <ReplyMessage />
       </div>
     </div>
-  )
+  );
 }
 
 export default ChatApp

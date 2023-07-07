@@ -21,8 +21,8 @@
     bottom: 0px;
     left: 0px;
     right: 0px;
-    min-height: 56px;
-    max-height: 200px;
+    // min-height: 58px;
+    // max-height: 200px;
     border-top: 1px solid theme("colors.black.200");
     
   }
@@ -43,9 +43,15 @@
     outline-offset: -5px;
     outline: none;
 
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
+    // position: absolute;
+    // bottom: 0px;
+    // left: 0px;
+
+    &:focus {
+      background-color: rgb(255, 255, 255);
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 100px 0px;
+      transition: background-color 200ms ease 0s, box-shadow 200ms ease 0s;
+    }
   }
 }
 

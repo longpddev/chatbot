@@ -19,7 +19,7 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#0057FF",
+          DEFAULT: "rgb(0, 87, 255)",
         },
         black: {
           DEFAULT: "rgba(0,0,0)",
