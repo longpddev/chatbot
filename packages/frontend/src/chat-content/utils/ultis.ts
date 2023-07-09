@@ -10,3 +10,12 @@ export function generateUniqueId (): string {
 
   return uniqueId;
 }
+
+export async function fakeAPI () {
+  async function delay (ms: number) {
+    await new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  await delay(250);
+  return true;
+}

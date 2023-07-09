@@ -4,9 +4,7 @@ import { useEffect } from 'preact/compat';
 import { useRef, useState } from 'preact/hooks';
 import useStore from '../../store';
 import { shallow } from 'zustand/shallow';
-import { BOT_ID, CLIENT_ID, FAKE_BOT_DATA } from '../../utils/constants';
-
-let indexOfAnswerChatbot = 0;
+import { CLIENT_ID } from '../../utils/constants';
 
 function ReplyMessage () {
   const [messageValue, setMessageValue] = useState<string>("")
@@ -15,19 +13,21 @@ function ReplyMessage () {
 
   const {
     changeBottomPositionOfChatContent,
-    createAndAddMessage
+    createAndAddMessage,
+    createAndAddMessageFromChatBot
   } = useStore(
     (state) => ({
       changeBottomPositionOfChatContent:
         state.changeBottomPositionOfChatContent,
-      createAndAddMessage: state.createAndAddMessage
+      createAndAddMessage: state.createAndAddMessage,
+      createAndAddMessageFromChatBot: state.createAndAddMessageFromChatBot
     }),
     shallow
   );
 
   useEffect(() => {
     createAndAddMessageFromChatBot();
-  }, []);
+  }, [createAndAddMessageFromChatBot]);
 
   const handleTextAreaChangeHeight = () => {
     const heightOfChatReplyMessage = chatReplyMessageRef.current?.offsetHeight ?? 0;
@@ -43,15 +43,6 @@ function ReplyMessage () {
     setMessageValue("")
 
     createAndAddMessageFromChatBot()
-  }
-
-  const createAndAddMessageFromChatBot = () => {
-    const fakeDataChatBot = FAKE_BOT_DATA[indexOfAnswerChatbot] ?? [];
-    fakeDataChatBot.forEach(message => {
-      createAndAddMessage(message, BOT_ID);
-    });
-
-    indexOfAnswerChatbot += 1;
   }
 
   return (

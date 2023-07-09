@@ -32,11 +32,18 @@ export interface State {
   changeBottomPositionOfChatContent: (position: number) => void
   createAndAddMessage: (messageText: string, userId: string) => void
   setIsNewChat: (status: boolean) => void
-  // createAndAddMessageFromChatBot: () => void
+  createAndAddMessageFromChatBot: () => void
 }
 
 export interface Message {
   id: number | string
   message: string
   userId: string
+  status: StatusMessage
+}
+
+export enum StatusMessage {
+  pending,
+  success,
+  failed
 }
