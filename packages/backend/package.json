@@ -2,14 +2,29 @@
   "name": "@chatbot/backend",
   "version": "1.0.0",
   "description": "backend for chatbot",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "",
-    "build": "",
     "lint:check": "",
-    "lint:fix": ""
+    "lint:fix": "",
+    "build": "cross-env NODE_ENV=production npx tsc",
+    "start": "node dist/index.js",
+    "dev": "cross-env NODE_ENV=development concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\""
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.4.1",
+    "concurrently": "^8.2.0",
+    "nodemon": "^3.0.1",
+    "typescript": "^5.1.6"
+  }
 }

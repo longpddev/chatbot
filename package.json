@@ -12,6 +12,7 @@
     "lint:check": "npm run lint:check --workspaces",
     "lint:fix": "npm run lint:fix --workspaces",
     "frontend:dev": "npm run dev --workspace=@chatbot/frontend",
+    "backend:dev": "npm run dev --workspace=@chatbot/backend",
     "prepare": "husky install && npx husky set .husky/pre-commit \"npm run lint:check\""
   },
   "keywords": [],
