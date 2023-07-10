@@ -16,6 +16,5 @@ export async function fakeAPI () {
     await new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  await delay(500);
-  return true;
+  return await delay(500);
 }
