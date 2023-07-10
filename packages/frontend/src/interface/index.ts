@@ -33,6 +33,7 @@ export interface State {
   createAndAddMessage: (messageText: string, userId: string) => void
   setIsNewChat: (status: boolean) => void
   createAndAddMessageFromChatBot: () => void
+  updatePendingMessage: (idMessage: string, updateData: { message?: string, status: StatusMessage }) => void
 }
 
 export interface Message {

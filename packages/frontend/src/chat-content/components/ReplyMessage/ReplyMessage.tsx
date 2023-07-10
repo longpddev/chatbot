@@ -41,8 +41,6 @@ function ReplyMessage () {
 
     createAndAddMessage(trimMessageValue, CLIENT_ID)
     setMessageValue("")
-
-    createAndAddMessageFromChatBot()
   }
 
   return (
