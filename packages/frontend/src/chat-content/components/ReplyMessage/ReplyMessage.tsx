@@ -41,17 +41,15 @@ function ReplyMessage () {
 
     createAndAddMessage(trimMessageValue, CLIENT_ID)
     setMessageValue("")
-
-    createAndAddMessageFromChatBot()
   }
 
   return (
-    <div className="chat-app__reply-message" ref={chatReplyMessageRef}>
+    <div className="chat-app__reply-message flex" ref={chatReplyMessageRef}>
       <TextAreaAutoSize
         placeholder="Write a reply..."
         className="chat-app__reply-textarea"
         onHeightChange={handleTextAreaChangeHeight}
-        onInput={e => setMessageValue(e.target.value)}
+        onInput={e => setMessageValue((e.target as HTMLTextAreaElement).value || '')}
         value={messageValue}
         onPressEnter={handleAddMessage}
       />

@@ -1,48 +1,58 @@
-import express, { Express } from 'express';
-import routes from './routes';
-import cors from 'cors'
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import morgan from 'morgan';
+import UserController from './interfaces/http/controllers/UserController';
 
-import './load-env'
+import dotenv from 'dotenv';
 
-const app: Express = express();
+// Load environment variables from .env file
+dotenv.config();
+
+
+const app = express();
 const port = process.env.PORT;
 const version = '/v1/'
 
-app.use(cors())
+// Middleware
+app.use(bodyParser.json());
+app.use(cors());
+app.use(morgan('dev'));
 
-Object.entries(routes).forEach(([path, router]) => {
-  app.use(version + path, router)
-})
+// Routes
+app.post('/users', UserController.createUser);
+app.get('/users/:userId', UserController.getUser);
 
+// Start server
 app.listen(port, () => {
-  function print (path: any, layer: any) {
-    if (layer.route) {
-      layer.route.stack.forEach(print.bind(null, path.concat(split(layer.route.path))))
-    } else if (layer.name === 'router' && layer.handle.stack) {
-      layer.handle.stack.forEach(print.bind(null, path.concat(split(layer.regexp))))
-    } else if (layer.method) {
-      console.log('%s /%s',
-        layer.method.toUpperCase(),
-        path.concat(split(layer.regexp)).filter(Boolean).join('/'))
-    }
-  }
-  
-  function split (thing: any) {
-    if (typeof thing === 'string') {
-      return thing.split('/')
-    } else if (thing.fast_slash) {
-      return ''
-    } else {
-      var match = thing.toString()
-        .replace('\\/?', '')
-        .replace('(?=\\/|$)', '$')
-        .match(/^\/\^((?:\\[.*+?^${}()|[\]\\\/]|[^.*+?^${}()|[\]\\\/])*)\$\//)
-      return match
-        ? match[1].replace(/\\(.)/g, '$1').split('/')
-        : '<complex:' + thing.toString() + '>'
-    }
-  }
-  
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}${version}`);
-  app._router.stack.forEach(print.bind(null, []))
+    function print (path: any, layer: any) {
+        if (layer.route) {
+          layer.route.stack.forEach(print.bind(null, path.concat(split(layer.route.path))))
+        } else if (layer.name === 'router' && layer.handle.stack) {
+          layer.handle.stack.forEach(print.bind(null, path.concat(split(layer.regexp))))
+        } else if (layer.method) {
+          console.log('%s /%s',
+            layer.method.toUpperCase(),
+            path.concat(split(layer.regexp)).filter(Boolean).join('/'))
+        }
+      }
+      
+      function split (thing: any) {
+        if (typeof thing === 'string') {
+          return thing.split('/')
+        } else if (thing.fast_slash) {
+          return ''
+        } else {
+          var match = thing.toString()
+            .replace('\\/?', '')
+            .replace('(?=\\/|$)', '$')
+            .match(/^\/\^((?:\\[.*+?^${}()|[\]\\\/]|[^.*+?^${}()|[\]\\\/])*)\$\//)
+          return match
+            ? match[1].replace(/\\(.)/g, '$1').split('/')
+            : '<complex:' + thing.toString() + '>'
+        }
+      }
+      
+      console.log(`⚡️[server]: Server is running at http://localhost:${port}${version}`);
+      app._router.stack.forEach(print.bind(null, []))
 });

@@ -21,9 +21,7 @@ function Conversations () {
       const element = contentChatRef.current;
 
       if (element) {
-        element.scrollTop =
-        element.scrollHeight;
-
+        element.scrollTop = element.scrollHeight;
         // const isElementReachBottom = element.scrollHeight - element.scrollTop - element.clientHeight < 1;
       }
     };

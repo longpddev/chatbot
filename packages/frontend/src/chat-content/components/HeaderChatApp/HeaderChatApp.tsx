@@ -9,7 +9,7 @@ function HeaderChatApp () {
       </div>
       <div>
         <p className="font-semibold text-base">Carlburg</p>
-        <p className="text-black-100">Active 1h ago</p>
+        {/* <p className="text-black-100">Active 1h ago</p> */}
       </div>
     </div>
   );

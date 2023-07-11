@@ -25,6 +25,9 @@ module.exports = {
         "@typescript-eslint/semi": "off",
         "eol-last": "off",
         "no-return-assign": 'off',
-        "no-new": "off"
+        "no-new": "off",
+        "@typescript-eslint/no-misused-promises": "off",
+        "@typescript-eslint/consistent-type-assertions": "off",
+        "@typescript-eslint/prefer-reduce-type-parameter": "off"
     },
 };

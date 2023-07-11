@@ -1,51 +1,30 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
-import { forwardRef, memo } from 'preact/compat';
+import { forwardRef, memo, JSX } from 'preact/compat';
 import {
   useCallback,
   useId,
   useLayoutEffect,
   useRef
 } from 'preact/hooks';
+import { SIZING_STYLE, SizingData, SizingProps, TextAreaAutoSizeProps } from './types';
+import clsx from 'clsx';
 
-const pickStyle = function pick (props, obj) {
-  return props.reduce((acc, prop) => {
-    acc[prop] = obj[prop];
-    return acc;
-  }, {});
-};
+export const pick = <Obj extends Record<string, any>, Key extends keyof Obj>(
+  props: Key[],
+  obj: Obj
+): Pick<Obj, Key> =>
+    props.reduce<Pick<Obj, Key>>((acc, prop) => {
+      acc[prop] = obj[prop];
+      return acc;
+    }, {} as Pick<Obj, Key>);
 
-const SIZING_STYLE = [
-  'borderBottomWidth',
-  'borderLeftWidth',
-  'borderRightWidth',
-  'borderTopWidth',
-  'boxSizing',
-  'fontFamily',
-  'fontSize',
-  'fontStyle',
-  'fontWeight',
-  'letterSpacing',
-  'lineHeight',
-  'paddingBottom',
-  'paddingLeft',
-  'paddingRight',
-  'paddingTop',
-  // non-standard
-  'tabSize',
-  'textIndent',
-  // non-standard
-  'textRendering',
-  'textTransform',
-  'width',
-  'wordBreak'
-];
-
-function getSizingData (node) {
+function getSizingData (node: HTMLElement): SizingData | null {
   const style = window.getComputedStyle(node);
   if (style === null) {
     return null;
   }
-  const sizingStyle = pickStyle(SIZING_STYLE, style);
+  // const sizingStyle = pickStyle(SIZING_STYLE, style);
+  const sizingStyle = pick(SIZING_STYLE as unknown as SizingProps[], style);
   const boxSizing = sizingStyle.boxSizing;
 
   // probably node is detached from DOM, can't read computed dimensions
@@ -65,9 +44,9 @@ function getSizingData (node) {
   };
 }
 
-let hiddenTextarea = null;
+let hiddenTextarea: HTMLTextAreaElement | null = null;
 
-function getHeight (node, sizingData) {
+function getHeight (node: HTMLElement, sizingData: SizingData) {
   const height = node.scrollHeight;
   if (sizingData.sizingStyle.boxSizing === 'border-box') {
     // border-box: add border, since height = content + padding + border
@@ -78,7 +57,7 @@ function getHeight (node, sizingData) {
   return height - sizingData.paddingSize;
 }
 
-function forceHiddenStyles (node) {
+function forceHiddenStyles (node: HTMLElement) {
   const HIDDEN_TEXTAREA_STYLE = {
     'min-height': '0',
     'max-height': 'none',
@@ -89,14 +68,17 @@ function forceHiddenStyles (node) {
     'z-index': '-1000',
     top: '0',
     right: '0'
-  };
+  } as const;
 
   Object.keys(HIDDEN_TEXTAREA_STYLE).forEach(key => {
-    node.style.setProperty(key, HIDDEN_TEXTAREA_STYLE[key], 'important');
+    node.style.setProperty(key, HIDDEN_TEXTAREA_STYLE[key as keyof typeof HIDDEN_TEXTAREA_STYLE], 'important');
   });
 }
 
-function calculateNodeHeight (sizingData, value, minRows, maxRows) {
+function calculateNodeHeight (sizingData: SizingData,
+  value: string,
+  minRows = 1,
+  maxRows = Infinity) {
   if (!minRows) {
     minRows = 1;
   }
@@ -116,8 +98,10 @@ function calculateNodeHeight (sizingData, value, minRows, maxRows) {
 
   const { boxSizing } = sizingStyle;
   Object.keys(sizingStyle).forEach(_key => {
-    const key = _key;
-    hiddenTextarea.style[key] = sizingStyle[key];
+    // const key = _key;
+    // hiddenTextarea.style[key] = sizingStyle[key];
+    const key = _key as keyof typeof sizingStyle;
+    if (hiddenTextarea) hiddenTextarea.style[key] = sizingStyle[key] as any;
   });
   forceHiddenStyles(hiddenTextarea);
   hiddenTextarea.value = value;
@@ -142,26 +126,23 @@ function calculateNodeHeight (sizingData, value, minRows, maxRows) {
   return [height, rowHeight];
 }
 
-/**
- * @param {import('preact').JSX.HTMLAttributes<HTMLTextAreaElement>
- * & { className?: string, minHeight?: number, minRows?: number, maxRows?: number }} props
- * @param {{current: HTMLTextAreaElement} | undefined} ref
- */
-function TextAreaAutoSize (
+const TextAreaAutoSize = forwardRef<HTMLTextAreaElement, TextAreaAutoSizeProps>((
   { className = '', value = '', minRows, maxRows, onInput, onHeightChange, onPressEnter, ...props },
   ref
-) {
+) => {
   // const textAreaRef = /** @type {{ current: HTMLTextAreaElement}} */ (
   //   useRef()
   // );
 
   const textAreaId = useId();
+  const firstRenderTimeRef = useRef(true);
 
-  const measurementsCacheRef = useRef();
+  const measurementsCacheRef = useRef<SizingData>();
   const heightRef = useRef(0);
 
   const resizeTextarea = useCallback(() => {
-    const node = /** @type {HTMLTextAreaElement} */ (ref?.current ?? document.getElementById(textAreaId));
+    const node = (document.getElementById(textAreaId) as HTMLTextAreaElement);
+    // const node = /** @type {HTMLTextAreaElement} */ (ref?.current ?? document.getElementById(textAreaId));
     const nodeSizingData = measurementsCacheRef.current
       ? measurementsCacheRef.current
       : getSizingData(node);
@@ -171,7 +152,7 @@ function TextAreaAutoSize (
     measurementsCacheRef.current = nodeSizingData;
     const _calculateNodeHeight = calculateNodeHeight(
       nodeSizingData,
-      node.value || node.placeholder || 'x',
+      node?.value || node.placeholder || 'x',
       minRows,
       maxRows
     );
@@ -179,21 +160,27 @@ function TextAreaAutoSize (
 
     if (heightRef.current !== height) {
       heightRef.current = height;
-      node.style.setProperty('height', height + 'px', 'important');
+      node?.style.setProperty('height', height + 'px', 'important');
       onHeightChange?.(height);
     }
   }, [minRows, maxRows, textAreaId, ref]);
 
   useLayoutEffect(() => {
-    resizeTextarea();
-  }, [resizeTextarea]);
+    const isNotFirstRenderAndValueIsEmpty = !firstRenderTimeRef.current && !value;
 
-  const handleChange = event => {
+    // Call function that cal height textarea
+    if (firstRenderTimeRef.current || isNotFirstRenderAndValueIsEmpty) {
+      resizeTextarea();
+      if (firstRenderTimeRef.current) firstRenderTimeRef.current = false
+    }
+  }, [resizeTextarea, value]);
+
+  const handleChange = (event: JSX.TargetedEvent<HTMLTextAreaElement, Event>) => {
     resizeTextarea();
     onInput?.(event);
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: JSX.TargetedKeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
       onPressEnter?.()
@@ -203,7 +190,7 @@ function TextAreaAutoSize (
   return (
     <textarea
       {...props}
-      className={`textarea ${className}`}
+      className={clsx("textarea", className && className)}
       value={value}
       onInput={handleChange}
       ref={ref}
@@ -211,6 +198,6 @@ function TextAreaAutoSize (
       onKeyDown={handleKeyDown}
     />
   );
-}
+})
 
-export default memo(forwardRef(TextAreaAutoSize));
+export default memo(TextAreaAutoSize);
