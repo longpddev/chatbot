@@ -190,9 +190,7 @@ const TextAreaAutoSize = forwardRef<HTMLTextAreaElement, TextAreaAutoSizeProps>(
   return (
     <textarea
       {...props}
-      className={clsx("textarea", {
-        className
-      })}
+      className={clsx("textarea", className && className)}
       value={value}
       onInput={handleChange}
       ref={ref}
