@@ -5,13 +5,8 @@ export const BOT_ID = 'bot';
 export const CLIENT_ID = 'client';
 
 export const FAKE_BOT_DATA = [
-  [" Hi there! Welcome to Intercom - the #1 business messenger for connecting you to your customers. Want to find out more about Intercom?"],
-  [
-    "Hello", "Can you are company's customer?"
-  ],
-  [
-    "Yes!", "Here is your answer."
-  ]
+  " Hi there! Welcome to Intercom - the #1 business messenger for connecting you to your customers. Want to find out more about Intercom?",
+  "Are you a company's customer?"
 ]
 
 export const MESSAGE_OPTIONS = [

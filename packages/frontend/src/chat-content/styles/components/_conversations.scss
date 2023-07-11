@@ -10,9 +10,13 @@
   }
 
   &__message {
-    &__wrapper, &__timestamp {
+    &__wrapper, &__plusContent {
       margin-left: theme("spacing.avatar-container-width");
       width: calc(100% - theme("spacing.avatar-container-width"));
+    }
+
+    &__plusContent {
+      @apply text-gray-200 text-[13px] pt-[7px];
     }
   }
 

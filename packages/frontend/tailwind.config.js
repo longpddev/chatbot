@@ -37,7 +37,8 @@ export default {
 
       spacing: {
         "height-header": "64px",
-        "avatar-container-width": "45px"
+        "avatar-container-width": "45px",
+        "dimension-loading-chat": "10px"
       },
     },
   },
