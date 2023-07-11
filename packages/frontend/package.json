@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "cross-env NODE_ENV=development vite",
     "build": "npm run build:main-page && npm run build:boot-script",
     "build:main-page": "tsc && cross-env BUILD_FOR=main-page vite build",
     "build:boot-script": " cross-env BUILD_FOR=boot-script vite build -c vite.boot-script.config.ts --emptyOutDir false",
@@ -16,6 +16,7 @@
     "clsx": "^1.2.1",
     "preact": "^10.13.2",
     "sass": "^1.63.6",
+    "socket.io-client": "^4.7.1",
     "tiny-emitter": "^2.1.0",
     "zustand": "^4.3.9"
   },

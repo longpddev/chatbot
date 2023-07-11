@@ -3,9 +3,10 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import morgan from 'morgan';
 import UserController from './interfaces/http/controllers/UserController';
+import http from 'http'
 
 import dotenv from 'dotenv';
-
+import { Server } from "socket.io";
 // Load environment variables from .env file
 dotenv.config();
 
@@ -16,15 +17,27 @@ const version = '/v1/'
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+  origin: 'http://127.0.0.1:5173',
+}))
+const server = http.createServer(app)
+const io = new Server(server, {
+  cors: {
+    origin: 'http://127.0.0.1:5173'
+  }
+});
 app.use(morgan('dev'));
 
 // Routes
 app.post('/users', UserController.createUser);
 app.get('/users/:userId', UserController.getUser);
 
+io.on('connection', (socket) => {
+  console.log('a user connected', socket);
+});
+
 // Start server
-app.listen(port, () => {
+server.listen(port, () => {
     function print (path: any, layer: any) {
         if (layer.route) {
           layer.route.stack.forEach(print.bind(null, path.concat(split(layer.route.path))))
