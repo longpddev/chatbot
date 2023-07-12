@@ -2,16 +2,15 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import morgan from "morgan";
-import dotenv from "dotenv";
-dotenv.config({ path: "./.env" });
 import UserController from "./interfaces/http/controllers/UserController";
 import http from "http";
-
+const dotenv = require('dotenv');
 import { Server } from "socket.io";
 import { createChat } from "./openai";
 import { ChatController } from "./interfaces/http/controllers/ChatController";
-// Load environment variables from .env file
 
+const envFile = `.env.${process.env.NODE_ENV}`;
+dotenv.config({ path: envFile });
 const app = express();
 const port = process.env.PORT;
 const version = "/v1/";
