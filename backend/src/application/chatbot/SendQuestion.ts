@@ -2,7 +2,9 @@ import { OpenAIAnswerResponse } from "../../domain/models/chatbot/OpenAIAnswerRe
 import { QuestionInputDto } from "../../domain/models/chatbot/QuestionInputDto";
 
 export class SendQuestion {
-  public async execute(question: QuestionInputDto): Promise<OpenAIAnswerResponse> {
-    return new OpenAIAnswerResponse();
+  public async execute(
+    question: QuestionInputDto
+  ): Promise<OpenAIAnswerResponse | null> {
+    return null;
   }
 }

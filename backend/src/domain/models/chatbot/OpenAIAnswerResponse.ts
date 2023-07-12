@@ -1,1 +1,3 @@
-export class OpenAIAnswerResponse {}
+export interface OpenAIAnswerResponse {
+  answerText: String;
+}

@@ -1,1 +1,3 @@
-export class QuestionInputDto {}
+export interface QuestionInputDto {
+  questionText: String;
+}

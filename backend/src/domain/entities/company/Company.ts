@@ -1,1 +1,3 @@
-export class Company {}
+export interface Company {
+  conpanyCode: String;
+}
