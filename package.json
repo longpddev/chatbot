@@ -13,12 +13,14 @@
     "lint:fix": "npm run lint:fix --workspaces",
     "frontend:dev": "npm run dev --workspace=@chatbot/frontend",
     "backend:dev": "npm run dev --workspace=@chatbot/backend",
-    "prepare": "husky install && npx husky set .husky/pre-commit \"npm run lint:check\""
+    "docker:cli": "docker-compose -f docker-compose.yml exec chatbot ",
+    "docker:prod:cli": "docker-compose -f docker-compose.yml - exec chatbot ",
+    "docker:init": "docker-compose up -d"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "husky": "^8.0.3"
+  "dependencies": {
+    "shelljs": "^0.8.5"
   }
 }

@@ -1,0 +1,14 @@
+version: '3'
+services:
+  chatbot:
+    build: .
+    restart: always
+    tty: true
+    volumes:
+      - ./packages:/home/chatbot/packages
+      - ./package.json:/home/chatbot
+    ports:
+      - "3000:3000"
+      - "5173:5173"
+      - "4173:4173"
+    
