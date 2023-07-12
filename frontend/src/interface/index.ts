@@ -36,11 +36,19 @@ export interface State {
   updatePendingMessage: (idMessage: string, updateData: { message?: string, status: StatusMessage }) => void
 }
 
+export interface MessageMetaType {
+  scenario: unknown
+  message: unknown
+}
+
+export type MessageMetaData = Record<string, MessageMetaType[keyof MessageMetaType] >
+
 export interface Message {
   id: number | string
   message: string
   userId: string
   status: StatusMessage
+  type: 'scenario' | 'message'
 }
 
 export enum StatusMessage {
