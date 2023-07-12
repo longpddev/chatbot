@@ -1,3 +1,4 @@
+import './load-env'
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -5,10 +6,8 @@ import morgan from 'morgan';
 import UserController from './interfaces/http/controllers/UserController';
 import http from 'http'
 
-import dotenv from 'dotenv';
 import { Server } from "socket.io";
 // Load environment variables from .env file
-dotenv.config();
 
 
 const app = express();

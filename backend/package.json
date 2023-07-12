@@ -8,8 +8,8 @@
     "lint:check": "",
     "lint:fix": "",
     "build": "cross-env NODE_ENV=production npx tsc",
-    "start": "node --inspect dist/index.js",
-    "dev": "cross-env NODE_ENV=development concurrently \"npx tsc --watch\" \"nodemon --exec 'npm run start'\""
+    "start": "node dist/index.js",
+    "dev": "cross-env NODE_ENV=development concurrently \"npx tsc --watch\" \"nodemon --exec 'node --inspect dist/index.js'\""
   },
   "keywords": [],
   "author": "",

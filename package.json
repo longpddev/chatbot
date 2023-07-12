@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "description": "",
   "workspaces": [
-    "./packages/*"
+    "./backend",
+    "./frontend"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,13 +13,9 @@
     "lint:check": "npm run lint:check --workspaces",
     "lint:fix": "npm run lint:fix --workspaces",
     "frontend:dev": "npm run dev --workspace=@chatbot/frontend",
-    "backend:dev": "npm run dev --workspace=@chatbot/backend",
-    "prepare": "husky install && npx husky set .husky/pre-commit \"npm run lint:check\""
+    "backend:dev": "npm run dev --workspace=@chatbot/backend"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "husky": "^8.0.3"
-  }
+  "license": "ISC"
 }

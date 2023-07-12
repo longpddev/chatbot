@@ -9,7 +9,7 @@ const openai = new OpenAIApi(configuration);
 
 export default openai
 
-export const createChatCompletion_ = async (messages: ChatCompletionRequestMessage[]): Promise<ChatCompletionRequestMessage[]> => {
+export const createChat = async (messages: ChatCompletionRequestMessage[]): Promise<ChatCompletionRequestMessage[]> => {
   const result = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: messages,
@@ -36,7 +36,7 @@ export const createChatCompletion_ = async (messages: ChatCompletionRequestMessa
         name: functionName
       })
 
-      return await createChatCompletion_(messages)
+      return await createChat(messages)
     }
   }
 
